@@ -9,14 +9,13 @@ part 'json_test.g.dart';
 
 void main() {
 
-  PersonRepository repo;
+  FuturePreferencesRepository<Person> repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
   var bart;
   group("PreferencesRepository", () {
 
     setUpAll(() async {
       SharedPreferences.setMockInitialValues({});
 
-      repo = new PersonRepository();
       bart = new Person("Bart", 22);
       var id = await repo.save(bart);
       expect(id, 0);
@@ -67,7 +66,7 @@ class Person extends _$PersonSerializerMixin {
 
 }
 
-class PersonRepository extends PreferencesRepository<Person>{
+class PersonDesSer extends DesSer<Person>{
   @override
   Person deserialize(String s) {
     return Person.fromJson(json.decode(s));
@@ -79,3 +78,4 @@ class PersonRepository extends PreferencesRepository<Person>{
   }
 
 }
+

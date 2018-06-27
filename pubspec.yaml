@@ -1,6 +1,6 @@
 name: pref_dessert
 description: Package that allows you persist objects easily.
-version: 0.0.2
+version: 0.0.3
 author: Bartłomiej Tartanus <bartektartanus@gmail.com>
 homepage: https://github.com/bartektartanus/pref_dessert
 

@@ -6,14 +6,13 @@ import 'package:pref_dessert/pref_dessert.dart';
 
 void main() {
 
-  PersonRepository repo;
+  FuturePreferencesRepository<Person> repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
   var bart;
   group("PreferencesRepository", () {
 
     setUpAll(() async {
       SharedPreferences.setMockInitialValues({});
 
-      repo = new PersonRepository();
       bart = new Person("Bart", 22);
       var id = await repo.save(bart);
       expect(id, 0);
@@ -59,7 +58,7 @@ class Person {
 
 }
 
-class PersonRepository extends PreferencesRepository<Person>{
+class PersonDesSer extends DesSer<Person>{
   @override
   Person deserialize(String s) {
     var split = s.split(",");
