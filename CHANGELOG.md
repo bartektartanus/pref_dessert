@@ -1,3 +1,6 @@
+## 0.0.5
+* tests bug fix
+
 ## 0.0.4
 * There are now two repository classes - 'normal' and `Future` version
 * Added more methods to repository classes

@@ -9,12 +9,13 @@ part 'json_test.g.dart';
 
 void main() {
 
-  FuturePreferencesRepository<Person> repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
+  FuturePreferencesRepository<Person> repo;
   var bart;
   group("PreferencesRepository", () {
 
     setUpAll(() async {
       SharedPreferences.setMockInitialValues({});
+      repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
 
       bart = new Person("Bart", 22);
       var id = await repo.save(bart);
