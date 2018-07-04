@@ -20,14 +20,14 @@ void main() {
 
     test('save person', () async {
 
-      var all = await repo.getAll();
+      var all = await repo.findAll();
       expect(all, [bart]);
 
       var foo = new Person("Foo", 1);
       var fooId = await repo.save(foo);
       expect(fooId, 1);
 
-      all = await repo.getAll();
+      all = await repo.findAll();
       expect(all, [bart, foo]);
     });
 

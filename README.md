@@ -4,7 +4,7 @@ Package that allows you persist objects as shared preferences easily. Package na
 
 ## Getting Started
 
-To use this package you just need to extend `PreferencesRepository<T>` class, replace generic T class with the one you want to save in shared preferences. This class requires you to implement two methods to serialize and deserialize objects. In future releases I'm planning to use JSON serializer so it will be much simpler to use.
+To use this package you just need to extend `DesSer<T>` class, replace generic T class with the one you want to save in shared preferences. This class requires you to implement two methods to serialize and deserialize objects. In future releases I'm planning to use JSON serializer so it will be much simpler to use. Then pass this class to `PreferenceRepository` or `FuturePreferencesRepository` and you're good to go!
 
 ## Example
 
@@ -20,10 +20,10 @@ class Person {
 
 ``` 
 
-`PersonRepository` which extends `PreferencesRepository` and implements two methods:
+`PersonDesSer` which extends `DesSer<T>` and implements two methods which serialize this objects using CSV format:
 ```dart
 
-class PersonRepository extends PreferencesRepository<Person>{
+class PersonDesSer extends DesSer<Person>{
   @override
   Person deserialize(String s) {
     var split = s.split(",");
@@ -38,9 +38,30 @@ class PersonRepository extends PreferencesRepository<Person>{
 }
 ```
 
-Usage in code:
+You can also do this using JSON with `convert` package:
+
 ```dart
-var repo = new PersonRepository();
+import 'dart:convert';
+
+class JsonPersonDesSer extends DesSer<Person>{
+  @override
+  Person deserialize(String s) {
+    var map = json.decode(s);
+    return new Person(map['name'] as String, map['age'] as int);
+  }
+
+  @override
+  String serialize(Person t) {
+    var map = {"name":t.name, "age":t.age};
+    return json.encode(map);
+  }
+
+}
+```
+
+Then create an instance of either class and pass it to the `FuturePreferencesRepository<T>`:
+```dart
+var repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
 repo.save(new Person("FooBar", 42));
 var list = repo.getAll();
 ```

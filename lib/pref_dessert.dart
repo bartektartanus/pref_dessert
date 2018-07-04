@@ -3,12 +3,16 @@ library pref_dessert;
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
+// Abstract class for deserialization and serialization which you have to implement and then pass it to the
+// [PreferencesRepository]
 abstract class DesSer<T> {
   T deserialize(String s);
   String serialize(T t);
 }
 
+// PreferencesRepository that takes [SharedPreferences] directly. Be aware that SharedPreferences.getInstance() returns
+// `Future` so you have to wait for that to complete (eg. during your app startup) to be able to use this class!
+// If you don't want to do this, just use [FuturePreferencesRepository]
 class PreferencesRepository<T> extends _InnerPreferencesRepository<T>{
 
   final SharedPreferences prefs;
@@ -19,12 +23,20 @@ class PreferencesRepository<T> extends _InnerPreferencesRepository<T>{
     return _save(prefs, t);
   }
 
-  List<T> getAll()  {
-    return _getAll(prefs);
+  List<T> findAll()  {
+    return _findAll(prefs);
+  }
+
+  List<T> findAllWhere(bool test(T element)){
+    return findAll().where(test).toList();
   }
 
   T findOne(int i) {
     return _findOne(prefs, i);
+  }
+
+  T findFirstWhere( bool test(T element), {T orElse()}) {
+    return _findOneWhere(prefs, test, orElse: orElse);
   }
 
   void update(int index, T t) {
@@ -37,6 +49,7 @@ class PreferencesRepository<T> extends _InnerPreferencesRepository<T>{
 
 }
 
+// Repository class that takes [DesSer<T>] and allows you to save and read your objects.
 class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T>{
 
   Future<SharedPreferences> prefs = SharedPreferences.getInstance();
@@ -49,12 +62,20 @@ class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T>{
     return _save(await prefs, t);
   }
 
-  Future<List<T>> getAll() async {
-    return _getAll(await prefs);
+  Future<List<T>> findAll() async {
+    return _findAll(await prefs);
+  }
+
+  Future<List<T>> findAllWhere(bool test(T element)) async {
+    return (await findAll()).where(test).toList();
   }
 
   Future<T> findOne(int i) async{
     return _findOne(await prefs, i);
+  }
+
+  Future<T> findFirstWhere( bool test(T element), {T orElse()}) async {
+    return _findOneWhere(await prefs, test, orElse: orElse);
   }
 
   void update(int index, T t) async {
@@ -67,7 +88,7 @@ class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T>{
 
 }
 
-
+// Just inner class to simplify implementations
 class _InnerPreferencesRepository<T> {
 
   final String _key = T.runtimeType.toString();
@@ -86,7 +107,7 @@ class _InnerPreferencesRepository<T> {
     return list.length-1;
   }
 
-  List<T> _getAll(SharedPreferences prefs)  {
+  List<T> _findAll(SharedPreferences prefs)  {
     var list = prefs.getStringList(_key);
     if(list == null){
       return [];
@@ -102,6 +123,10 @@ class _InnerPreferencesRepository<T> {
     }else{
       return desSer.deserialize(list[i]);
     }
+  }
+
+  T _findOneWhere(SharedPreferences prefs, bool test(T element), {T orElse()}) {
+    return _findAll(prefs).firstWhere(test, orElse: orElse);
   }
 
   void _update(SharedPreferences prefs, int index, T t) {

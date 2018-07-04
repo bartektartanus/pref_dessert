@@ -1,3 +1,8 @@
+## 0.0.4
+* There are now two repository classes - 'normal' and `Future` version
+* Added more methods to repository classes
+* `DesSer<T>` class for DESserializing and SERializing classes instead of two abstract methods in `PreferencesRepository`
+
 ## 0.0.2
 * Better description with example
 * Test for class serialization with json.
