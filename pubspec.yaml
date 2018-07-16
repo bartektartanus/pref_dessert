@@ -1,11 +1,11 @@
 name: pref_dessert
 description: Package that allows you persist objects easily.
-version: 0.0.5
+version: 0.0.6
 author: Bartłomiej Tartanus <bartektartanus@gmail.com>
 homepage: https://github.com/bartektartanus/pref_dessert
 
 environment:
-  sdk: '>=2.0.0-dev.54 <2.0.0'
+  sdk: '>=2.0.0-dev.54 <3.0.0'
 
 
 dependencies:

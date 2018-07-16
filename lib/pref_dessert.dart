@@ -1,18 +1,38 @@
 library pref_dessert;
 
 import 'dart:async';
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Abstract class for deserialization and serialization which you have to implement and then pass it to the
-// [PreferencesRepository]
+/// Abstract class for deserialization and serialization which you have to implement and then pass it to the
+/// [PreferencesRepository]
 abstract class DesSer<T> {
   T deserialize(String s);
   String serialize(T t);
 }
 
-// PreferencesRepository that takes [SharedPreferences] directly. Be aware that SharedPreferences.getInstance() returns
-// `Future` so you have to wait for that to complete (eg. during your app startup) to be able to use this class!
-// If you don't want to do this, just use [FuturePreferencesRepository]
+/// If you want to store your classes as JSON (which is recommended), use this class and only provide implementation
+/// of two methods which converts your objects from and to map.
+abstract class JsonDesSer<T> extends DesSer<T>{
+
+  T fromMap(Map<String, dynamic> map);
+  Map<String, dynamic> toMap(T t);
+
+  @override
+  String serialize(T t) {
+    return json.encode(toMap(t));
+  }
+
+  @override
+  T deserialize(String s) {
+    return fromMap(json.decode(s));
+  }
+
+}
+
+/// PreferencesRepository that takes [SharedPreferences] directly. Be aware that SharedPreferences.getInstance() returns
+/// `Future` so you have to wait for that to complete (eg. during your app startup) to be able to use this class!
+/// If you don't want to do this, just use [FuturePreferencesRepository]
 class PreferencesRepository<T> extends _InnerPreferencesRepository<T>{
 
   final SharedPreferences prefs;
@@ -49,7 +69,7 @@ class PreferencesRepository<T> extends _InnerPreferencesRepository<T>{
 
 }
 
-// Repository class that takes [DesSer<T>] and allows you to save and read your objects.
+/// Repository class that takes [DesSer<T>] and allows you to save and read your objects.
 class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T>{
 
   Future<SharedPreferences> prefs = SharedPreferences.getInstance();
@@ -88,7 +108,7 @@ class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T>{
 
 }
 
-// Just inner class to simplify implementations
+/// Just inner class to simplify implementations
 class _InnerPreferencesRepository<T> {
 
   final String _key = T.runtimeType.toString();

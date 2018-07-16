@@ -1,3 +1,6 @@
+## 0.0.6
+* added example and more comments in code
+
 ## 0.0.5
 * tests bug fix
 

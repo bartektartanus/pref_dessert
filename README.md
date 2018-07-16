@@ -63,5 +63,5 @@ Then create an instance of either class and pass it to the `FuturePreferencesRep
 ```dart
 var repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
 repo.save(new Person("FooBar", 42));
-var list = repo.getAll();
+var list = repo.findAll();
 ```
