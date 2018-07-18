@@ -1,5 +1,7 @@
 # pref_dessert
+
 [![Build Status](https://travis-ci.org/bartektartanus/pref_dessert.svg?branch=master)](https://travis-ci.org/bartektartanus/pref_dessert)
+
 Package that allows you persist objects as shared preferences easily. Package name comes from: Shared PREFerences DESerializer/SERializer of T (generic) class.
 
 ## Getting Started
