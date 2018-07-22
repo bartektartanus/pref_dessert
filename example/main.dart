@@ -22,6 +22,9 @@ class PersonDesSer extends DesSer<Person>{
     return "${t.name},${t.age}";
   }
 
+  @override
+  String get key => "Person";
+
 }
 
 void main() {

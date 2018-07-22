@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Abstract class for deserialization and serialization which you have to implement and then pass it to the
 /// [PreferencesRepository]
 abstract class DesSer<T> {
+  String get key;
   T deserialize(String s);
   String serialize(T t);
 }
@@ -118,10 +119,11 @@ class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T>{
 /// Just inner class to simplify implementations
 class _InnerPreferencesRepository<T> {
 
-  final String _key = T.runtimeType.toString();
+  final String _key;
   final DesSer<T> desSer;
 
-  _InnerPreferencesRepository(this.desSer);
+  _InnerPreferencesRepository(this.desSer):
+    this._key = desSer.key;
 
   int _save(SharedPreferences prefs, T t) {
     var list = prefs.getStringList(_key);

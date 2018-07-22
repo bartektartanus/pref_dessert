@@ -1,3 +1,6 @@
+## 0.0.8
+* fixed bug with shared preferences key
+
 ## 0.0.7
 * `update` method bug-fix
 

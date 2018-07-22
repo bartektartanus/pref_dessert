@@ -89,6 +89,7 @@ class Person {
 }
 
 class PersonDesSer extends DesSer<Person>{
+
   @override
   Person deserialize(String s) {
     var split = s.split(",");
@@ -99,5 +100,8 @@ class PersonDesSer extends DesSer<Person>{
   String serialize(Person t) {
     return "${t.name},${t.age}";
   }
+
+  @override
+  String get key => "Person";
   
 }

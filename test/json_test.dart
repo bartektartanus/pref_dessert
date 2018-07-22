@@ -78,5 +78,8 @@ class PersonDesSer extends DesSer<Person>{
     return json.encode(t.toJson());
   }
 
+  @override
+  String get key => "Person";
+
 }
 
