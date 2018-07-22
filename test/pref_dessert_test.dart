@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:test/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,35 +8,56 @@ import 'package:pref_dessert/pref_dessert.dart';
 
 void main() {
 
-  FuturePreferencesRepository<Person> repo;
-  var bart;
+  PreferencesRepository<Person> repo;
+  var bartek = new Person("Bartek", 22);
+  var bar = new Person("Bar", 1);
+  var foo = new Person("Foo", 2);
+
   group("PreferencesRepository", () {
 
     setUpAll(() async {
       SharedPreferences.setMockInitialValues({});
-      repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
-
-      bart = new Person("Bart", 22);
-      var id = await repo.save(bart);
-      expect(id, 0);
+      Future.wait([
+        SharedPreferences.getInstance().then((p){
+          repo = new PreferencesRepository<Person>(p, new PersonDesSer());
+        })
+      ]);
     });
 
-    test('save person', () async {
+    setUp((){
+      repo.removeAll();
+    });
 
-      var all = await repo.findAll();
-      expect(all, [bart]);
+    test('save person', () {
+      var id = repo.save(bartek);
+      expect(id, 0);
 
-      var foo = new Person("Foo", 1);
-      var fooId = await repo.save(foo);
+      var all = repo.findAll();
+      expect(all, [bartek]);
+
+      var fooId = repo.save(foo);
       expect(fooId, 1);
 
-      all = await repo.findAll();
-      expect(all, [bart, foo]);
+      all = repo.findAll();
+      expect(all, [bartek, foo]);
     });
 
-    test('find one', () async {
-      var one = await repo.findOne(0);
-      expect(one, bart);
+    test('find one', () {
+      var id = repo.save(bartek);
+      expect(id, 0);
+      var one = repo.findOne(0);
+      expect(one, bartek);
+    });
+
+    test('update', () {
+      repo.save(bar);
+      repo.save(bartek);
+      repo.save(foo);
+      expect(repo.findAll().length, 3);
+      bartek.name = "Bartolini";
+      bartek.age += 10;
+      repo.update(1, bartek);
+      expect(repo.findAll(), [bar, bartek, foo]);
     });
   });
 
@@ -56,6 +79,12 @@ class Person {
 
   @override
   int get hashCode => name.hashCode ^ age.hashCode;
+
+  @override
+  String toString() {
+    return 'Person{name: $name, age: $age}';
+  }
+
 
 }
 

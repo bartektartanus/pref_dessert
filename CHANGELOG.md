@@ -1,3 +1,6 @@
+## 0.0.7
+* `update` method bug-fix
+
 ## 0.0.6
 * added example and more comments in code
 

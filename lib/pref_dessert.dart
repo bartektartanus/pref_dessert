@@ -67,6 +67,10 @@ class PreferencesRepository<T> extends _InnerPreferencesRepository<T>{
     return _remove(prefs, index);
   }
 
+  void removeAll(){
+    _removeAll(prefs);
+  }
+
 }
 
 /// Repository class that takes [DesSer<T>] and allows you to save and read your objects.
@@ -106,6 +110,9 @@ class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T>{
     return _remove(await prefs, index);
   }
 
+  void removeAll() async {
+    _removeAll(await prefs);
+  }
 }
 
 /// Just inner class to simplify implementations
@@ -153,6 +160,8 @@ class _InnerPreferencesRepository<T> {
     var list = prefs.getStringList(_key);
     list.removeAt(index);
     list.insert(index, desSer.serialize(t));
+    // without this preferences are not persisted and lost after app restart
+    prefs.setStringList(_key, list);
   }
 
   List<T> _remove(SharedPreferences prefs, int index) {
@@ -161,4 +170,7 @@ class _InnerPreferencesRepository<T> {
     return list.map((s) => desSer.deserialize(s)).toList();
   }
 
+  void _removeAll(SharedPreferences prefs){
+    prefs.remove(_key);
+  }
 }
