@@ -1,3 +1,6 @@
+## 0.0.10
+* source code reformatted
+
 ## 0.0.9
 * added `saveAll` method 
 
