@@ -1,3 +1,6 @@
+## 0.0.9
+* added `saveAll` method 
+
 ## 0.0.8
 * fixed bug with shared preferences key
 

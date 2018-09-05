@@ -44,6 +44,10 @@ class PreferencesRepository<T> extends _InnerPreferencesRepository<T>{
     return _save(prefs, t);
   }
 
+  void saveAll(List<T> list){
+    _saveAll(prefs, list);
+  }
+
   List<T> findAll()  {
     return _findAll(prefs);
   }
@@ -85,6 +89,10 @@ class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T>{
 
   Future<int> save(T t) async {
     return _save(await prefs, t);
+  }
+
+  Future<void> saveAll(List<T> list) async {
+    return _saveAll(await prefs, list);
   }
 
   Future<List<T>> findAll() async {
@@ -134,6 +142,16 @@ class _InnerPreferencesRepository<T> {
     }
     prefs.setStringList(_key, list);
     return list.length-1;
+  }
+
+  void _saveAll(SharedPreferences prefs, List<T> listToSave){
+    var list = prefs.getStringList(_key);
+    if(list == null){
+      list = listToSave.map((t) => desSer.serialize(t)).toList();
+    }else{
+      list.addAll(listToSave.map((t) => desSer.serialize(t)));
+    }
+    prefs.setStringList(_key, list);
   }
 
   List<T> _findAll(SharedPreferences prefs)  {
