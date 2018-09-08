@@ -1,3 +1,6 @@
+## 0.1.0
+* added `removeWhere` method
+
 ## 0.0.10
 * source code reformatted
 

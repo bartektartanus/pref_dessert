@@ -59,6 +59,24 @@ void main() {
       repo.update(1, bartek);
       expect(repo.findAll(), [bar, bartek, foo]);
     });
+
+    test('removeAll', () {
+      repo.save(bar);
+      repo.save(bartek);
+      repo.save(foo);
+      expect(repo.findAll().length, 3);
+      repo.removeAll();
+      expect(repo.findAll(), []);
+    });
+
+    test('removeWhere', () {
+      repo.save(bar);
+      repo.save(bartek);
+      repo.save(foo);
+      expect(repo.findAll().length, 3);
+      repo.removeWhere((p) => p.age > 18);
+      expect(repo.findAll(), [bar, foo]);
+    });
   });
 
 }
