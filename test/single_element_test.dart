@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:pref_dessert/single_element.dart';
+import 'package:pref_dessert/pref_dessert.dart';
 import 'package:test/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

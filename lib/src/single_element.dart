@@ -1,9 +1,4 @@
-library pref_dessert;
-
-import 'dart:async';
-import 'package:pref_dessert/pref_dessert.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+part of pref_dessert_internal;
 
 /// SingleElementPreferencesRepository that takes [SharedPreferences] directly.
 /// Be aware that SharedPreferences.getInstance() returns `Future` so you have to wait for that
