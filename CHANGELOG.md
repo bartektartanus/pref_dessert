@@ -1,3 +1,7 @@
+## 0.2.0
+* added SingleElementPreferencesRepository is simplified version of PreferencesRepository 
+which only stores one value
+
 ## 0.1.0
 * added `removeWhere` method
 
