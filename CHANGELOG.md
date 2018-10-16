@@ -1,3 +1,6 @@
+## 0.2.2
+* `Dart` and `shared_preferences` version update
+
 ## 0.2.1
 * added SingleElementPreferencesRepository is simplified version of PreferencesRepository 
 which only stores one value
