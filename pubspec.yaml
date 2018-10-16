@@ -1,17 +1,17 @@
 name: pref_dessert
 description: Package that allows you persist objects as shared preferences easily. Package name comes from Shared PREFerences DESerializer/SERializer of T (generic) class.
-version: 0.2.1
+version: 0.2.2
 author: Bartłomiej Tartanus <bartektartanus@gmail.com>
 homepage: https://github.com/bartektartanus/pref_dessert
 
 environment:
-  sdk: '>=2.0.0-dev.54 <3.0.0'
+  sdk: '>=2.0.0 <3.0.0'
 
 
 dependencies:
   flutter:
     sdk: flutter
-  shared_preferences: ^0.4.2
+  shared_preferences: ^0.4.3
 #  json_serializable: "^0.5.0"
   json_annotation: '^1.1.0'
 
