@@ -1,4 +1,7 @@
 ## 0.2.2
+* `test` version update
+
+## 0.2.2
 * `Dart` and `shared_preferences` version update
 
 ## 0.2.1
