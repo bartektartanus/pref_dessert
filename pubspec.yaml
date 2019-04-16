@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  shared_preferences: ^0.4.3
+  shared_preferences: 
 #  json_serializable: "^0.5.0"
   json_annotation: '^1.1.0'
 
