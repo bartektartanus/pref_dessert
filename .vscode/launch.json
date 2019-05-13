@@ -7,8 +7,7 @@
         {
             "name": "Flutter",
             "request": "launch",
-            "type": "dart",
-            "program": "example/main.dart"
+            "type": "dart"
         }
     ]
 }
