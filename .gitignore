@@ -2,6 +2,7 @@
 .dart_tool/
 .idea/
 .flutter-plugins
+.vscode/
 
 .packages
 .pub/
