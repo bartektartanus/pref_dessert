@@ -1,4 +1,7 @@
-## 0.2.2
+## 0.3.0
+* shared_preferences dependency update
+
+## 0.2.3
 * `test` version update
 
 ## 0.2.2
