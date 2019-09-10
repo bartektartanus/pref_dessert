@@ -1,3 +1,6 @@
+## 0.4.0+1
+* code reformat
+
 ## 0.4.0
 * dependency update
 * issue #4 key feature is not working.
