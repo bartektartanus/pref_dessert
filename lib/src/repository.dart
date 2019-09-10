@@ -80,8 +80,6 @@ class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T> {
 
   FuturePreferencesRepository(DesSer<T> desSer) : super(desSer);
 
-  final String _key = T.runtimeType.toString();
-
   Future<int> save(T t) async {
     return _save(await prefs, t);
   }

@@ -1,3 +1,7 @@
+## 0.4.0
+* dependency update
+* issue #4 key feature is not working.
+
 ## 0.3.0
 * shared_preferences dependency update
 
