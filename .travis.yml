@@ -10,14 +10,10 @@ addons:
       - libstdc++6
       - fonts-droid-fallback
 before_script:
-  - git clone https://github.com/flutter/flutter.git -b master --single-branch
+  - git clone https://github.com/flutter/flutter.git -b beta
   - ./flutter/bin/flutter doctor
-#  - gem install coveralls-lcov
 script:
-#  - ./flutter/bin/flutter analyze
-  - ./flutter/bin/flutter test #--coverage
-after_success:
-  - coveralls-lcov coverage/lcov.info
+  - ./flutter/bin/flutter test
 cache:
   directories:
     - $HOME/.pub-cache
