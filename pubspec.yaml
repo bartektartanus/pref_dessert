@@ -19,8 +19,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   test: ^1.6.3
-  flutter_driver:
-    sdk: flutter
   build_runner: ^1.6.9
   test_api: ^0.2.5
 
