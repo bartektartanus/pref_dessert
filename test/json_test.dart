@@ -6,13 +6,10 @@ import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 part 'json_test.g.dart';
 
-
 void main() {
-
   FuturePreferencesRepository<Person> repo;
   var bart;
   group("PreferencesRepository", () {
-
     setUpAll(() async {
       SharedPreferences.setMockInitialValues({});
       repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
@@ -23,7 +20,6 @@ void main() {
     });
 
     test('save person', () async {
-
       var all = await repo.findAll();
       expect(all, [bart]);
 
@@ -40,7 +36,6 @@ void main() {
       expect(one, bart);
     });
   });
-
 }
 
 @JsonSerializable()
@@ -50,24 +45,23 @@ class Person extends _$PersonSerializerMixin {
 
   Person(this.name, this.age);
 
-  factory Person.fromJson(Map<String, dynamic> map){
+  factory Person.fromJson(Map<String, dynamic> map) {
     return _$PersonFromJson(map);
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Person &&
-              runtimeType == other.runtimeType &&
-              name == other.name &&
-              age == other.age;
+      other is Person &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          age == other.age;
 
   @override
   int get hashCode => name.hashCode ^ age.hashCode;
-
 }
 
-class PersonDesSer extends DesSer<Person>{
+class PersonDesSer extends DesSer<Person> {
   @override
   Person deserialize(String s) {
     return Person.fromJson(json.decode(s));
@@ -80,6 +74,4 @@ class PersonDesSer extends DesSer<Person>{
 
   @override
   String get key => "Person";
-
 }
-

@@ -5,10 +5,12 @@ part of pref_dessert_internal;
 /// to complete (eg. during your app startup) to be able to use this class!
 /// If you don't want to do this, just use [FutureSingleElementPreferencesRepository]
 /// This is simplified version of [PreferencesRepository] which only stores one value.
-class SingleElementPreferencesRepository<T> extends _InnerSingleElementPreferencesRepository<T> {
+class SingleElementPreferencesRepository<T>
+    extends _InnerSingleElementPreferencesRepository<T> {
   final SharedPreferences prefs;
 
-  SingleElementPreferencesRepository(this.prefs, DesSer<T> desSer) : super(desSer);
+  SingleElementPreferencesRepository(this.prefs, DesSer<T> desSer)
+      : super(desSer);
 
   void save(T t) {
     _save(prefs, t);
@@ -21,12 +23,12 @@ class SingleElementPreferencesRepository<T> extends _InnerSingleElementPreferenc
   void remove() {
     _remove(prefs);
   }
-
 }
 
 /// Repository class that takes [DesSer<T>] and allows you to save and read your objects.
 /// This is simplified version of [FuturePreferencesRepository] which only stores one value.
-class FutureSingleElementPreferencesRepository<T> extends _InnerSingleElementPreferencesRepository<T> {
+class FutureSingleElementPreferencesRepository<T>
+    extends _InnerSingleElementPreferencesRepository<T> {
   Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
   FutureSingleElementPreferencesRepository(DesSer<T> desSer) : super(desSer);
@@ -44,7 +46,6 @@ class FutureSingleElementPreferencesRepository<T> extends _InnerSingleElementPre
   Future<void> remove() async {
     _remove(await prefs);
   }
-
 }
 
 /// Just inner class to simplify implementations
@@ -52,17 +53,18 @@ class _InnerSingleElementPreferencesRepository<T> {
   final String _key;
   final DesSer<T> desSer;
 
-  _InnerSingleElementPreferencesRepository(this.desSer) : this._key = desSer.key;
+  _InnerSingleElementPreferencesRepository(this.desSer)
+      : this._key = desSer.key;
 
   void _save(SharedPreferences prefs, T t) {
     prefs.setString(_key, desSer.serialize(t));
   }
 
   T _find(SharedPreferences prefs) {
-    if(prefs.getKeys().contains(_key)){
+    if (prefs.getKeys().contains(_key)) {
       var e = prefs.getString(_key);
       return desSer.deserialize(e);
-    }else{
+    } else {
       return null;
     }
   }
@@ -70,5 +72,4 @@ class _InnerSingleElementPreferencesRepository<T> {
   void _remove(SharedPreferences prefs) {
     prefs.remove(_key);
   }
-
 }

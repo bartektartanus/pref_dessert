@@ -5,26 +5,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:pref_dessert/pref_dessert.dart';
 
-
 void main() {
-
   PreferencesRepository<Person> repo;
   var bartek = new Person("Bartek", 22);
   var bar = new Person("Bar", 1);
   var foo = new Person("Foo", 2);
 
   group("PreferencesRepository", () {
-
     setUpAll(() async {
       SharedPreferences.setMockInitialValues({});
       Future.wait([
-        SharedPreferences.getInstance().then((p){
+        SharedPreferences.getInstance().then((p) {
           repo = new PreferencesRepository<Person>(p, new PersonDesSer());
         })
       ]);
     });
 
-    setUp((){
+    setUp(() {
       repo.removeAll();
     });
 
@@ -78,7 +75,6 @@ void main() {
       expect(repo.findAll(), [bar, foo]);
     });
   });
-
 }
 
 class Person {
@@ -90,10 +86,10 @@ class Person {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Person &&
-              runtimeType == other.runtimeType &&
-              name == other.name &&
-              age == other.age;
+      other is Person &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          age == other.age;
 
   @override
   int get hashCode => name.hashCode ^ age.hashCode;
@@ -102,12 +98,9 @@ class Person {
   String toString() {
     return 'Person{name: $name, age: $age}';
   }
-
-
 }
 
-class PersonDesSer extends DesSer<Person>{
-
+class PersonDesSer extends DesSer<Person> {
   @override
   Person deserialize(String s) {
     var split = s.split(",");
@@ -121,5 +114,4 @@ class PersonDesSer extends DesSer<Person>{
 
   @override
   String get key => "Person";
-  
 }

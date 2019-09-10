@@ -189,12 +189,10 @@ class _InnerPreferencesRepository<T> {
     prefs.remove(_key);
   }
 
-  void _removeWhere(SharedPreferences prefs, bool test(T element)){
+  void _removeWhere(SharedPreferences prefs, bool test(T element)) {
     var list = _findAll(prefs);
     list.removeWhere(test);
     // without this preferences are not persisted and lost after app restart
     prefs.setStringList(_key, list.map(desSer.serialize).toList());
   }
-
-
 }

@@ -7,24 +7,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'pref_dessert_test.dart';
 
 void main() {
-
   SingleElementPreferencesRepository<Person> repo;
   var bartek = new Person("Bartek", 22);
   var bar = new Person("Bar", 1);
   var foo = new Person("Foo", 2);
 
   group("PreferencesRepository", () {
-
     setUpAll(() async {
       SharedPreferences.setMockInitialValues({});
       Future.wait([
-        SharedPreferences.getInstance().then((p){
-          repo = new SingleElementPreferencesRepository<Person>(p, new PersonDesSer());
+        SharedPreferences.getInstance().then((p) {
+          repo = new SingleElementPreferencesRepository<Person>(
+              p, new PersonDesSer());
         })
       ]);
     });
 
-    setUp((){
+    setUp(() {
       repo.remove();
     });
 
@@ -45,7 +44,5 @@ void main() {
       repo.remove();
       expect(repo.find(), null);
     });
-
   });
-
 }
