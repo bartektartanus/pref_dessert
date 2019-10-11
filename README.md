@@ -66,3 +66,53 @@ var repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
 repo.save(new Person("FooBar", 42));
 var list = repo.findAll();
 ```
+### Using `json_serializable` package to generate DesSer
+
+Step 1: import library  [json_serializable.](https://pub.dev/packages/json_serializable) in _pubspec.yaml_
+
+```
+dependencies:
+  flutter:
+    sdk: flutter
+  pref_dessert: ^0.4.0+1
+  json_serializable: ^3.2.2
+  json_annotation: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^1.0.0
+```
+
+Step 2:  Create your class with annotation `@JsonSerializable`
+
+```
+import 'package:pref_dessert/pref_dessert.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'user.g.dart';
+
+@JsonSerializable()
+class User {
+  String uid = "";
+  String photoUrl = "";
+  String displayName = "";
+  String email = "";
+
+  User({this.uid, this.photoUrl, this.displayName, this.email});
+}
+
+class UserDesSer extends JsonDesSer<User> {
+  @override
+  String get key => "PREF_USER";
+
+  @override
+  User fromMap(Map<String, dynamic> map) => _$UserFromJson(map);
+
+  @override
+  Map<String, dynamic> toMap(User user) => _$UserToJson(user);
+}
+
+```
+
+Step 3: Run command :  `flutter pub run build_runner build` 
