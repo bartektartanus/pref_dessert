@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pref_dessert/pref_dessert.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   PreferencesRepository<Person> repo;
   var bartek = new Person("Bartek", 22);
   var bar = new Person("Bar", 1);
