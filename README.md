@@ -70,7 +70,7 @@ var list = repo.findAll();
 
 Step 1: import library  [json_serializable.](https://pub.dev/packages/json_serializable) in _pubspec.yaml_
 
-```
+```yaml
 dependencies:
   flutter:
     sdk: flutter
@@ -86,7 +86,7 @@ dev_dependencies:
 
 Step 2:  Create your class with annotation `@JsonSerializable`
 
-```
+```dart
 import 'package:pref_dessert/pref_dessert.dart';
 import 'package:json_annotation/json_annotation.dart';
 
