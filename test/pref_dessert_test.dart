@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:pref_dessert/pref_dessert.dart';
@@ -14,6 +14,7 @@ void main() {
 
   group("PreferencesRepository", () {
     setUpAll(() async {
+      TestWidgetsFlutterBinding.ensureInitialized();
       SharedPreferences.setMockInitialValues({});
       Future.wait([
         SharedPreferences.getInstance().then((p) {
@@ -56,6 +57,17 @@ void main() {
       bartek.age += 10;
       repo.update(1, bartek);
       expect(repo.findAll(), [bar, bartek, foo]);
+    });
+
+    test('updateWhere', () {
+      repo.save(bar);
+      repo.save(bartek);
+      repo.save(foo);
+      expect(repo.findAll().length, 3);
+      bartek.name = "Bartolini";
+      bartek.age += 10;
+      repo.updateWhere((p) => p.age > 0, bartek);
+      expect(repo.findAll(), [bartek, bartek, bartek]);
     });
 
     test('removeAll', () {

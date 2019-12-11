@@ -61,6 +61,10 @@ class PreferencesRepository<T> extends _InnerPreferencesRepository<T> {
     _update(prefs, index, t);
   }
 
+  void updateWhere(bool test(T t), T t) {
+    _updateWhere(prefs, test, t);
+  }
+
   List<T> remove(int index) {
     return _remove(prefs, index);
   }
@@ -106,6 +110,10 @@ class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T> {
 
   void update(int index, T t) async {
     _update(await prefs, index, t);
+  }
+
+  void updateWhere(bool test(T t), T t) async {
+    _updateWhere(await prefs, test, t);
   }
 
   Future<List<T>> remove(int index) async {
@@ -177,6 +185,19 @@ class _InnerPreferencesRepository<T> {
     list.insert(index, desSer.serialize(t));
     // without this preferences are not persisted and lost after app restart
     prefs.setStringList(_key, list);
+  }
+
+  void _updateWhere(SharedPreferences prefs, bool test(T element), T t) {
+    var list = _findAll(prefs);
+    var result = list.map((e){
+      if(test(e)){
+        return t;
+      }else{
+        return e;
+      }
+    }).map(desSer.serialize).toList();
+    // without this preferences are not persisted and lost after app restart
+    prefs.setStringList(_key, result);
   }
 
   List<T> _remove(SharedPreferences prefs, int index) {

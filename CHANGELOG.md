@@ -1,3 +1,6 @@
+## 0.5.0
+* new method - `updateWhere`
+
 ## 0.4.0+1
 * code reformat
 
