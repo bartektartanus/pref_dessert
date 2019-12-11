@@ -1,4 +1,4 @@
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:pref_dessert/pref_dessert.dart';
@@ -11,6 +11,7 @@ void main() {
   var bart;
   group("PreferencesRepository", () {
     setUpAll(() async {
+      TestWidgetsFlutterBinding.ensureInitialized();
       SharedPreferences.setMockInitialValues({});
       repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
 

@@ -1,3 +1,6 @@
+## 0.5.0+1
+* fixed some tests
+
 ## 0.5.0
 * new method - `updateWhere`
 

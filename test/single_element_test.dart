@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter_test/flutter_test.dart';
 import 'package:pref_dessert/pref_dessert.dart';
-import 'package:test/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'pref_dessert_test.dart';
@@ -14,6 +14,7 @@ void main() {
 
   group("PreferencesRepository", () {
     setUpAll(() async {
+      TestWidgetsFlutterBinding.ensureInitialized();
       SharedPreferences.setMockInitialValues({});
       Future.wait([
         SharedPreferences.getInstance().then((p) {
