@@ -4,7 +4,9 @@ part of pref_dessert_internal;
 /// [PreferencesRepository]
 abstract class DesSer<T> {
   String get key;
+
   T deserialize(String s);
+
   String serialize(T t);
 }
 
@@ -12,6 +14,7 @@ abstract class DesSer<T> {
 /// of two methods which converts your objects from and to map.
 abstract class JsonDesSer<T> extends DesSer<T> {
   T fromMap(Map<String, dynamic> map);
+
   Map<String, dynamic> toMap(T t);
 
   @override
@@ -189,14 +192,8 @@ class _InnerPreferencesRepository<T> {
 
   void _updateWhere(SharedPreferences prefs, bool test(T element), T t) {
     var list = _findAll(prefs);
-    var result = list.map((e){
-      if(test(e)){
-        return t;
-      }else{
-        return e;
-      }
-    }).map(desSer.serialize).toList();
-    // without this preferences are not persisted and lost after app restart
+    var result =
+        list.map((e) => test(e) ? t : e).map(desSer.serialize).toList();
     prefs.setStringList(_key, result);
   }
 

@@ -1,3 +1,7 @@
+## 0.5.0+2
+* removed deprecated `author` tag from `pubspec.yaml`
+* added test coverage
+
 ## 0.5.0+1
 * fixed some tests
 
