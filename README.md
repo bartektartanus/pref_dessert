@@ -1,6 +1,5 @@
 # pref_dessert
-[![pub package](https://img.shields.io/pub/v/pref_dessert.svg)](https://pub.dartlang.org/packages/pref_dessert) [![Build Status](https://travis-ci.org/bartektartanus/pref_dessert.svg?branch=master)](https://travis-ci.org/bartektartanus/pref_dessert) ![Coverage](https://coveralls.io/repos/github/cedx/lcov.dart/badge.svg)
-
+[![pub package](https://img.shields.io/pub/v/pref_dessert.svg)](https://pub.dartlang.org/packages/pref_dessert) [![Build Status](https://travis-ci.org/bartektartanus/pref_dessert.svg?branch=master)](https://travis-ci.org/bartektartanus/pref_dessert) [![codecov](https://codecov.io/gh/bartektartanus/pref_dessert/branch/master/graph/badge.svg)](https://codecov.io/gh/bartektartanus/pref_dessert)
 Package that allows you persist objects as shared preferences easily. Package name comes from: Shared PREFerences DESerializer/SERializer of T (generic) class.
 
 ## Getting Started
