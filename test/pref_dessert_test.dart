@@ -11,6 +11,7 @@ void main() {
   var bartek = new Person("Bartek", 22);
   var bar = new Person("Bar", 1);
   var foo = new Person("Foo", 2);
+  var stefan = new Person("Stefan", 42);
 
   group("PreferencesRepository", () {
     setUpAll(() async {
@@ -41,11 +42,39 @@ void main() {
       expect(all, [bartek, foo]);
     });
 
+
+    test('save all', () {
+      repo.saveAll([bartek, foo]);
+      expect(repo.findAll(), [bartek, foo]);
+
+      repo.saveAll([foo]);
+      expect(repo.findAll(), [bartek, foo, foo]);
+
+      repo.saveAll([bar]);
+      expect(repo.findAll(), [bartek, foo, foo, bar]);
+    });
+
     test('find one', () {
       var id = repo.save(bartek);
       expect(id, 0);
       var one = repo.findOne(0);
       expect(one, bartek);
+    });
+
+    test('find all where', () {
+      repo.saveAll([bartek, bar, foo]);
+      expect(repo.findAllWhere((p) => p.age > 20), [bartek]);
+      expect(repo.findAllWhere((p) => p.age < 20), [bar, foo]);
+      expect(repo.findAllWhere((p) => p.age > 0), [bartek, bar, foo]);
+    });
+
+    test('find first where', (){
+      repo.saveAll([bartek, bar, foo]);
+      expect(repo.findFirstWhere((p) => p.age > 20), bartek);
+      expect(repo.findFirstWhere((p) => p.age < 20), bar);
+      expect(repo.findFirstWhere((p) => p.age > 0), bartek);
+      expect(repo.findFirstWhere((p) => p.age > 0, orElse: () => stefan), bartek);
+      expect(repo.findFirstWhere((p) => p.age < 0, orElse: () => stefan), stefan);
     });
 
     test('update', () {

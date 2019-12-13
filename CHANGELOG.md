@@ -1,6 +1,8 @@
-## 0.5.0+2
+## 0.5.1
 * removed deprecated `author` tag from `pubspec.yaml`
-* added test coverage
+* added test coverage to travis build
+* more tests
+* `SharedPreferences` fields are now `final`
 
 ## 0.5.0+1
 * fixed some tests

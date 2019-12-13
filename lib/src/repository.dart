@@ -83,7 +83,7 @@ class PreferencesRepository<T> extends _InnerPreferencesRepository<T> {
 
 /// Repository class that takes [DesSer<T>] and allows you to save and read your objects.
 class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T> {
-  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+  final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
   FuturePreferencesRepository(DesSer<T> desSer) : super(desSer);
 

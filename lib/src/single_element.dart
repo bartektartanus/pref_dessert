@@ -29,7 +29,7 @@ class SingleElementPreferencesRepository<T>
 /// This is simplified version of [FuturePreferencesRepository] which only stores one value.
 class FutureSingleElementPreferencesRepository<T>
     extends _InnerSingleElementPreferencesRepository<T> {
-  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+  final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
   FutureSingleElementPreferencesRepository(DesSer<T> desSer) : super(desSer);
 
