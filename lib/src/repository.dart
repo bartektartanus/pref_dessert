@@ -178,7 +178,8 @@ class _InnerPreferencesRepository<T> {
     }
   }
 
-  T _findOneWhere(SharedPreferences prefs, bool test(T element), {T orElse()?}) {
+  T _findOneWhere(SharedPreferences prefs, bool test(T element),
+      {T orElse()?}) {
     return _findAll(prefs).firstWhere(test, orElse: orElse);
   }
 
@@ -192,7 +193,8 @@ class _InnerPreferencesRepository<T> {
 
   void _updateWhere(SharedPreferences prefs, bool test(T element), T t) {
     var list = _findAll(prefs);
-    var result = list.map((e) => test(e) ? t : e).map(desSer.serialize).toList();
+    var result =
+        list.map((e) => test(e) ? t : e).map(desSer.serialize).toList();
     prefs.setStringList(_key, result);
   }
 
