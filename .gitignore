@@ -12,3 +12,5 @@ ios/.generated/
 ios/Flutter/Generated.xcconfig
 ios/Runner/GeneratedPluginRegistrant.*
 *.iml
+
+.flutter-plugins-dependencies

@@ -32,5 +32,5 @@ void main() {
   repo.save(new Person("Foo", 42));
   repo.save(new Person("Bar", 1));
   var list = repo.findAll();
-
+  print(list);
 }

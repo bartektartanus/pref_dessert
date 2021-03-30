@@ -52,11 +52,11 @@ class PreferencesRepository<T> extends _InnerPreferencesRepository<T> {
     return findAll().where(test).toList();
   }
 
-  T findOne(int i) {
+  T? findOne(int i) {
     return _findOne(prefs, i);
   }
 
-  T findFirstWhere(bool test(T element), {T orElse()}) {
+  T? findFirstWhere(bool test(T element), {T orElse()?}) {
     return _findOneWhere(prefs, test, orElse: orElse);
   }
 
@@ -103,11 +103,11 @@ class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T> {
     return (await findAll()).where(test).toList();
   }
 
-  Future<T> findOne(int i) async {
+  Future<T?> findOne(int i) async {
     return _findOne(await prefs, i);
   }
 
-  Future<T> findFirstWhere(bool test(T element), {T orElse()}) async {
+  Future<T> findFirstWhere(bool test(T element), {T orElse()?}) async {
     return _findOneWhere(await prefs, test, orElse: orElse);
   }
 
@@ -169,7 +169,7 @@ class _InnerPreferencesRepository<T> {
     }
   }
 
-  T _findOne(SharedPreferences prefs, int i) {
+  T? _findOne(SharedPreferences prefs, int i) {
     var list = prefs.getStringList(_key);
     if (list == null || list.length <= i) {
       return null;
@@ -178,12 +178,12 @@ class _InnerPreferencesRepository<T> {
     }
   }
 
-  T _findOneWhere(SharedPreferences prefs, bool test(T element), {T orElse()}) {
+  T _findOneWhere(SharedPreferences prefs, bool test(T element), {T orElse()?}) {
     return _findAll(prefs).firstWhere(test, orElse: orElse);
   }
 
   void _update(SharedPreferences prefs, int index, T t) {
-    var list = prefs.getStringList(_key);
+    var list = prefs.getStringList(_key)!;
     list.removeAt(index);
     list.insert(index, desSer.serialize(t));
     // without this preferences are not persisted and lost after app restart
@@ -198,7 +198,7 @@ class _InnerPreferencesRepository<T> {
   }
 
   List<T> _remove(SharedPreferences prefs, int index) {
-    var list = prefs.getStringList(_key);
+    var list = prefs.getStringList(_key)!;
     list.removeAt(index);
     return list.map((s) => desSer.deserialize(s)).toList();
   }

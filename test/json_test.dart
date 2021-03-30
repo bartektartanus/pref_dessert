@@ -7,7 +7,7 @@ import 'dart:convert';
 part 'json_test.g.dart';
 
 void main() {
-  FuturePreferencesRepository<Person> repo;
+  late FuturePreferencesRepository<Person> repo;
   var bart;
   group("PreferencesRepository", () {
     setUpAll(() async {

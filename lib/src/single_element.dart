@@ -16,7 +16,7 @@ class SingleElementPreferencesRepository<T>
     _save(prefs, t);
   }
 
-  T find() {
+  T? find() {
     return _find(prefs);
   }
 
@@ -39,7 +39,7 @@ class FutureSingleElementPreferencesRepository<T>
     return _save(await prefs, t);
   }
 
-  Future<T> find() async {
+  Future<T?> find() async {
     return _find(await prefs);
   }
 
@@ -60,10 +60,10 @@ class _InnerSingleElementPreferencesRepository<T> {
     prefs.setString(_key, desSer.serialize(t));
   }
 
-  T _find(SharedPreferences prefs) {
+  T? _find(SharedPreferences prefs) {
     if (prefs.getKeys().contains(_key)) {
       var e = prefs.getString(_key);
-      return desSer.deserialize(e);
+      return e != null ? desSer.deserialize(e) : null;
     } else {
       return null;
     }

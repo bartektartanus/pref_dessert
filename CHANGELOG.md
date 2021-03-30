@@ -1,3 +1,7 @@
+## 0.6.0
+* migration to null-safety and Dart 2.12
+* dependency update
+
 ## 0.5.1
 * removed deprecated `author` tag from `pubspec.yaml`
 * added test coverage to travis build

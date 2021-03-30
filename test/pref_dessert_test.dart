@@ -7,7 +7,7 @@ import 'package:pref_dessert/pref_dessert.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  PreferencesRepository<Person> repo;
+  late PreferencesRepository<Person> repo;
   var bartek = new Person("Bartek", 22);
   var bar = new Person("Bar", 1);
   var foo = new Person("Foo", 2);
