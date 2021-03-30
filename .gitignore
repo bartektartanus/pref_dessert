@@ -14,3 +14,4 @@ ios/Runner/GeneratedPluginRegistrant.*
 *.iml
 
 .flutter-plugins-dependencies
+.fvm
