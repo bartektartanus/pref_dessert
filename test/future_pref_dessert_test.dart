@@ -42,7 +42,6 @@ void main() {
       expect(all, [bartek, foo]);
     });
 
-
     test('save all', () async {
       await repo.saveAll([bartek, foo]);
       expect(await repo.findAll(), [bartek, foo]);
@@ -73,8 +72,10 @@ void main() {
       expect(await repo.findFirstWhere((p) => p.age > 20), bartek);
       expect(await repo.findFirstWhere((p) => p.age < 20), bar);
       expect(await repo.findFirstWhere((p) => p.age > 0), bartek);
-      expect(await repo.findFirstWhere((p) => p.age > 0, orElse: () => stefan), bartek);
-      expect(await repo.findFirstWhere((p) => p.age < 0, orElse: () => stefan), stefan);
+      expect(await repo.findFirstWhere((p) => p.age > 0, orElse: () => stefan),
+          bartek);
+      expect(await repo.findFirstWhere((p) => p.age < 0, orElse: () => stefan),
+          stefan);
     });
 
     test('update', () async {

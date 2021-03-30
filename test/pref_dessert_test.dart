@@ -42,7 +42,6 @@ void main() {
       expect(all, [bartek, foo]);
     });
 
-
     test('save all', () {
       repo.saveAll([bartek, foo]);
       expect(repo.findAll(), [bartek, foo]);
@@ -68,13 +67,15 @@ void main() {
       expect(repo.findAllWhere((p) => p.age > 0), [bartek, bar, foo]);
     });
 
-    test('find first where', (){
+    test('find first where', () {
       repo.saveAll([bartek, bar, foo]);
       expect(repo.findFirstWhere((p) => p.age > 20), bartek);
       expect(repo.findFirstWhere((p) => p.age < 20), bar);
       expect(repo.findFirstWhere((p) => p.age > 0), bartek);
-      expect(repo.findFirstWhere((p) => p.age > 0, orElse: () => stefan), bartek);
-      expect(repo.findFirstWhere((p) => p.age < 0, orElse: () => stefan), stefan);
+      expect(
+          repo.findFirstWhere((p) => p.age > 0, orElse: () => stefan), bartek);
+      expect(
+          repo.findFirstWhere((p) => p.age < 0, orElse: () => stefan), stefan);
     });
 
     test('update', () {

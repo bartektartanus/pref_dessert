@@ -9,7 +9,6 @@ import 'pref_dessert_test.dart';
 void main() {
   late SingleElementPreferencesRepository<Person> repo;
   var bartek = new Person("Bartek", 22);
-  var bar = new Person("Bar", 1);
   var foo = new Person("Foo", 2);
 
   group("PreferencesRepository", () {
