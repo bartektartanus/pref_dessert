@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:pref_dessert/pref_dessert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -72,10 +71,8 @@ void main() {
       expect(repo.findFirstWhere((p) => p.age > 20), bartek);
       expect(repo.findFirstWhere((p) => p.age < 20), bar);
       expect(repo.findFirstWhere((p) => p.age > 0), bartek);
-      expect(
-          repo.findFirstWhere((p) => p.age > 0, orElse: () => stefan), bartek);
-      expect(
-          repo.findFirstWhere((p) => p.age < 0, orElse: () => stefan), stefan);
+      expect(repo.findFirstWhere((p) => p.age > 0, orElse: () => stefan), bartek);
+      expect(repo.findFirstWhere((p) => p.age < 0, orElse: () => stefan), stefan);
     });
 
     test('update', () {
@@ -129,10 +126,7 @@ class Person {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Person &&
-          runtimeType == other.runtimeType &&
-          name == other.name &&
-          age == other.age;
+      other is Person && runtimeType == other.runtimeType && name == other.name && age == other.age;
 
   @override
   int get hashCode => name.hashCode ^ age.hashCode;

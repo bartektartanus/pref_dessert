@@ -3,6 +3,7 @@ part of pref_dessert_internal;
 /// Abstract class for deserialization and serialization which you have to implement and then pass it to the
 /// [PreferencesRepository]
 abstract class DesSer<T> {
+  /// Key of the (de)serializer that is used to write and read objects into shared_preferences.
   String get key;
 
   T deserialize(String s);
@@ -36,6 +37,7 @@ class PreferencesRepository<T> extends _InnerPreferencesRepository<T> {
 
   PreferencesRepository(this.prefs, DesSer<T> desSer) : super(desSer);
 
+  /// Saves new object in repository
   int save(T t) {
     return _save(prefs, t);
   }
@@ -44,6 +46,7 @@ class PreferencesRepository<T> extends _InnerPreferencesRepository<T> {
     _saveAll(prefs, list);
   }
 
+  /// Returns all saved objects from the repository
   List<T> findAll() {
     return _findAll(prefs);
   }
@@ -178,8 +181,7 @@ class _InnerPreferencesRepository<T> {
     }
   }
 
-  T _findOneWhere(SharedPreferences prefs, bool test(T element),
-      {T orElse()?}) {
+  T _findOneWhere(SharedPreferences prefs, bool test(T element), {T orElse()?}) {
     return _findAll(prefs).firstWhere(test, orElse: orElse);
   }
 
@@ -193,8 +195,7 @@ class _InnerPreferencesRepository<T> {
 
   void _updateWhere(SharedPreferences prefs, bool test(T element), T t) {
     var list = _findAll(prefs);
-    var result =
-        list.map((e) => test(e) ? t : e).map(desSer.serialize).toList();
+    var result = list.map((e) => test(e) ? t : e).map(desSer.serialize).toList();
     prefs.setStringList(_key, result);
   }
 

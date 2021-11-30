@@ -14,8 +14,7 @@ void main() {
       TestWidgetsFlutterBinding.ensureInitialized();
       SharedPreferences.setMockInitialValues({});
       await SharedPreferences.getInstance().then((p) {
-        repo = new FutureSingleElementPreferencesRepository<Person>(
-            new PersonDesSer());
+        repo = new FutureSingleElementPreferencesRepository<Person>(new PersonDesSer());
       });
     });
 

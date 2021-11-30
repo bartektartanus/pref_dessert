@@ -17,8 +17,7 @@ void main() {
       SharedPreferences.setMockInitialValues({});
       Future.wait([
         SharedPreferences.getInstance().then((p) {
-          repo = new SingleElementPreferencesRepository<Person>(
-              p, new PersonDesSer());
+          repo = new SingleElementPreferencesRepository<Person>(p, new PersonDesSer());
         })
       ]);
     });

@@ -1,9 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:pref_dessert/pref_dessert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:pref_dessert/pref_dessert.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'dart:convert';
 part 'json_test.g.dart';
 
 void main() {
@@ -53,10 +54,7 @@ class Person extends _$PersonSerializerMixin {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Person &&
-          runtimeType == other.runtimeType &&
-          name == other.name &&
-          age == other.age;
+      other is Person && runtimeType == other.runtimeType && name == other.name && age == other.age;
 
   @override
   int get hashCode => name.hashCode ^ age.hashCode;

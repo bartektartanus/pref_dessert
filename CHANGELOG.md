@@ -1,3 +1,6 @@
+## 0.7.0
+* dependency update
+
 ## 0.6.0
 * migration to null-safety and Dart 2.12
 * dependency update
