@@ -15,3 +15,5 @@ ios/Runner/GeneratedPluginRegistrant.*
 
 .flutter-plugins-dependencies
 .fvm
+
+coverage

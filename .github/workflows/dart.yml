@@ -1,4 +1,4 @@
-name: Dart
+name: Flutter
 
 on:
   push:
@@ -13,18 +13,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v1.5.3
 
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
 
       - name: Test with coverage
-        run: dart test --coverage=coverage -r expanded
-
-      - name: Convert coverage to ICOV
-        run: pub run coverage:format_coverage --lcov --in=coverage --out=coverage.lcov --packages=.packages --report-on=lib
+        run: flutter test --coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
-          file: coverage.lcov
+          file: coverage/coverage.lcov
