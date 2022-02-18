@@ -42,6 +42,7 @@ class PreferencesRepository<T> extends _InnerPreferencesRepository<T> {
     return _save(prefs, t);
   }
 
+  /// Saves all objects in repository
   void saveAll(List<T> list) {
     _saveAll(prefs, list);
   }
@@ -90,14 +91,17 @@ class FuturePreferencesRepository<T> extends _InnerPreferencesRepository<T> {
 
   FuturePreferencesRepository(DesSer<T> desSer) : super(desSer);
 
+  /// Saves new object in repository
   Future<int> save(T t) async {
     return _save(await prefs, t);
   }
 
+  /// Saves all objects in repository
   Future<void> saveAll(List<T> list) async {
     return _saveAll(await prefs, list);
   }
 
+  /// Returns all saved objects from the repository
   Future<List<T>> findAll() async {
     return _findAll(await prefs);
   }
