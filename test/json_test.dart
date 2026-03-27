@@ -8,48 +8,49 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'json_test.g.dart';
 
 void main() {
-  late FuturePreferencesRepository<Person> repo;
-  var bart;
-  group("PreferencesRepository", () {
+  late PreferencesRepository<Person> repo;
+  var bart = Person("Bart", 22);
+
+  group("PreferencesRepository with JSON", () {
     setUpAll(() async {
       TestWidgetsFlutterBinding.ensureInitialized();
       SharedPreferences.setMockInitialValues({});
-      repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
+      var prefs = await SharedPreferences.getInstance();
+      repo = PreferencesRepository<Person>(prefs, PersonDesSer());
 
-      bart = new Person("Bart", 22);
-      var id = await repo.save(bart);
+      var id = repo.save(bart);
       expect(id, 0);
     });
 
-    test('save person', () async {
-      var all = await repo.findAll();
+    test('save person', () {
+      var all = repo.findAll();
       expect(all, [bart]);
 
-      var foo = new Person("Foo", 1);
-      var fooId = await repo.save(foo);
+      var foo = Person("Foo", 1);
+      var fooId = repo.save(foo);
       expect(fooId, 1);
 
-      all = await repo.findAll();
+      all = repo.findAll();
       expect(all, [bart, foo]);
     });
 
-    test('find one', () async {
-      var one = await repo.findOne(0);
+    test('find one', () {
+      var one = repo.findOne(0);
       expect(one, bart);
     });
   });
 }
 
 @JsonSerializable()
-class Person extends _$PersonSerializerMixin {
+class Person {
   String name;
   int age;
 
   Person(this.name, this.age);
 
-  factory Person.fromJson(Map<String, dynamic> map) {
-    return _$PersonFromJson(map);
-  }
+  factory Person.fromJson(Map<String, dynamic> map) => _$PersonFromJson(map);
+
+  Map<String, dynamic> toJson() => _$PersonToJson(this);
 
   @override
   bool operator ==(Object other) =>

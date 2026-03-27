@@ -1,5 +1,5 @@
-
 import 'package:pref_dessert/pref_dessert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Person class that you want to serialize:
 class Person {
@@ -10,11 +10,11 @@ class Person {
 }
 
 /// PersonDesSer which extends DesSer<T> and implements two methods which serialize this objects using CSV format:
-class PersonDesSer extends DesSer<Person>{
+class PersonDesSer extends DesSer<Person> {
   @override
   Person deserialize(String s) {
     var split = s.split(",");
-    return new Person(split[0], int.parse(split[1]));
+    return Person(split[0], int.parse(split[1]));
   }
 
   @override
@@ -24,13 +24,13 @@ class PersonDesSer extends DesSer<Person>{
 
   @override
   String get key => "Person";
-
 }
 
-void main() {
-  var repo = new FuturePreferencesRepository<Person>(new PersonDesSer());
-  repo.save(new Person("Foo", 42));
-  repo.save(new Person("Bar", 1));
+void main() async {
+  var prefs = await SharedPreferences.getInstance();
+  var repo = PreferencesRepository<Person>(prefs, PersonDesSer());
+  repo.save(Person("Foo", 42));
+  repo.save(Person("Bar", 1));
   var list = repo.findAll();
   print(list);
 }

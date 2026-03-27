@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pref_dessert/pref_dessert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,18 +6,15 @@ import 'pref_dessert_test.dart';
 
 void main() {
   late SingleElementPreferencesRepository<Person> repo;
-  var bartek = new Person("Bartek", 22);
-  var foo = new Person("Foo", 2);
+  var bartek = Person("Bartek", 22);
+  var foo = Person("Foo", 2);
 
-  group("PreferencesRepository", () {
+  group("SingleElementPreferencesRepository", () {
     setUpAll(() async {
       TestWidgetsFlutterBinding.ensureInitialized();
       SharedPreferences.setMockInitialValues({});
-      Future.wait([
-        SharedPreferences.getInstance().then((p) {
-          repo = new SingleElementPreferencesRepository<Person>(p, new PersonDesSer());
-        })
-      ]);
+      var prefs = await SharedPreferences.getInstance();
+      repo = SingleElementPreferencesRepository<Person>(prefs, PersonDesSer());
     });
 
     setUp(() {

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pref_dessert/pref_dessert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,20 +5,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late PreferencesRepository<Person> repo;
-  var bartek = new Person("Bartek", 22);
-  var bar = new Person("Bar", 1);
-  var foo = new Person("Foo", 2);
-  var stefan = new Person("Stefan", 42);
+  var bartek = Person("Bartek", 22);
+  var bar = Person("Bar", 1);
+  var foo = Person("Foo", 2);
+  var stefan = Person("Stefan", 42);
 
   group("PreferencesRepository", () {
     setUpAll(() async {
-      TestWidgetsFlutterBinding.ensureInitialized();
       SharedPreferences.setMockInitialValues({});
-      Future.wait([
-        SharedPreferences.getInstance().then((p) {
-          repo = new PreferencesRepository<Person>(p, new PersonDesSer());
-        })
-      ]);
+      var prefs = await SharedPreferences.getInstance();
+      repo = PreferencesRepository<Person>(prefs, PersonDesSer());
     });
 
     setUp(() {
@@ -97,6 +91,15 @@ void main() {
       expect(repo.findAll(), [bartek, bartek, bartek]);
     });
 
+    test('remove', () {
+      repo.save(bar);
+      repo.save(bartek);
+      repo.save(foo);
+      expect(repo.findAll().length, 3);
+      repo.remove(1);
+      expect(repo.findAll(), [bar, foo]);
+    });
+
     test('removeAll', () {
       repo.save(bar);
       repo.save(bartek);
@@ -141,7 +144,7 @@ class PersonDesSer extends DesSer<Person> {
   @override
   Person deserialize(String s) {
     var split = s.split(",");
-    return new Person(split[0], int.parse(split[1]));
+    return Person(split[0], int.parse(split[1]));
   }
 
   @override

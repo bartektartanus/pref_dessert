@@ -1,3 +1,16 @@
+## 1.0.0
+* **BREAKING**: migrated to Dart 3 / Flutter 3 (SDK constraint `^3.8.0`)
+* **BREAKING**: removed `FuturePreferencesRepository` and `FutureSingleElementPreferencesRepository` — use the sync variants with `await SharedPreferences.getInstance()` instead
+* **BREAKING**: `remove(index)` now returns `void` instead of `List<T>` for consistency with other mutation methods
+* replaced `part`/`part of` with regular imports
+* fixed bug where `remove(index)` did not persist the removal to SharedPreferences
+* fixed `_update` to use direct list assignment instead of `removeAt` + `insert`
+* simplified `SingleElementPreferencesRepository.find()` — removed redundant key lookup
+* removed dead `_key` field in `FutureSingleElementPreferencesRepository` that shadowed the parent
+* modernized function type syntax (`bool Function(T)` instead of `bool test(T)`)
+* updated dependencies: `shared_preferences ^2.5.0`, `json_annotation ^4.11.0`, `json_serializable ^6.13.0`
+* added missing test for `remove(index)`
+
 ## 0.8.0
 * dependency update
 
