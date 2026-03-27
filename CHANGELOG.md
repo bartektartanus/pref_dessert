@@ -1,4 +1,7 @@
-## 1.0.0
+## 1.0.1 [2026-03-27]
+* README update
+
+## 1.0.0 [2026-03-27]
 * **BREAKING**: migrated to Dart 3 / Flutter 3 (SDK constraint `^3.8.0`)
 * **BREAKING**: removed `FuturePreferencesRepository` and `FutureSingleElementPreferencesRepository` — use the sync variants with `await SharedPreferences.getInstance()` instead
 * **BREAKING**: `remove(index)` now returns `void` instead of `List<T>` for consistency with other mutation methods
@@ -11,26 +14,26 @@
 * updated dependencies: `shared_preferences ^2.5.0`, `json_annotation ^4.11.0`, `json_serializable ^6.13.0`
 * added missing test for `remove(index)`
 
-## 0.8.0
+## 0.8.0 [2022-02-18]
 * dependency update
 
-## 0.7.0
+## 0.7.0 [2021-11-30]
 * dependency update
 
-## 0.6.0
+## 0.6.0 [2021-03-30]
 * migration to null-safety and Dart 2.12
 * dependency update
 
-## 0.5.1
+## 0.5.1 [2019-12-15]
 * removed deprecated `author` tag from `pubspec.yaml`
 * added test coverage to travis build
 * more tests
 * `SharedPreferences` fields are now `final`
 
-## 0.5.0+1
+## 0.5.0+1 [2019-12-11]
 * fixed some tests
 
-## 0.5.0
+## 0.5.0 [2019-12-11]
 * new method - `updateWhere`
 
 ## 0.4.0+1
